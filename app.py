@@ -3,6 +3,9 @@ import pandas as pd
 import os
 from nba_api.stats.static import players, teams
 from nba_api.stats.endpoints import leaguegamefinder, playergamelog, leaguegamelog, teamgamelogs
+from dashboard import run_dashboard
+import streamlit as st
+
 
 def get_all_nba_teams():
     # Retrieve all NBA teams
@@ -179,6 +182,7 @@ if __name__ == "__main__":
         # test_nba_player_stats("LeBron James")
         download_all_teams_basic_stats_master_csvs()
         download_all_teams_advanced_master_csvs()
+        run_dashboard()
 
     except Exception as e:
         print(f"\nAn error occurred while connecting to nba_api: {e}")

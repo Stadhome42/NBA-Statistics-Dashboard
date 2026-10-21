@@ -1,0 +1,31 @@
+# --- Python & Virtual Environments ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# --- Data Files ---
+# Ignores all CSV files anywhere in the project directory
+*.csv
+
+# --- Environment & Secrets ---
+# Keep your API keys and secrets safe
+.env
+.env.local
+.streamlit/secrets.toml
+
+# --- IDEs & Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Operating System Files ---
+.DS_Store
+Thumbs.db
+Desktop.ini

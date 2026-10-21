@@ -9,10 +9,6 @@ venv/
 ENV/
 .venv/
 
-# --- Data Files ---
-# Ignores all CSV files anywhere in the project directory
-*.csv
-
 # --- Environment & Secrets ---
 # Keep your API keys and secrets safe
 .env

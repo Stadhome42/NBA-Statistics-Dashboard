@@ -5,9 +5,8 @@ import plotly.express as px
 import streamlit as st
 
 
-st.set_page_config(page_title="NBA Advanced Analytics Dashboard", layout="wide")
+st.set_page_config(page_title="NBA Team Stats", layout="wide")
 
-st.title("🏀 NBA Team Advanced & Basic Analytics Dashboard")
 
 ADVANCE_DATA_DIR = "nba_advanced_master_csvs"
 BASIC_DATA_DIR = "nba_basic_master_csvs"
@@ -27,7 +26,7 @@ for filepath in csv_files:
     file_map[clean_name] = filepath
 
 # Sidebar Navigation
-st.sidebar.header("Dashboard Controls")
+st.sidebar.header("Team Search Controls")
 selected_team = st.sidebar.selectbox("Select Team", sorted(list(file_map.keys())))
 
 # --- Load Data Sources ---
@@ -73,8 +72,8 @@ date_range_label = f"{min_date_str} to {max_date_str}" if not df_filtered.empty 
 years_label = selected_season if selected_season != "All Years" else f"{df['GAME_DATE'].min().year}–{df['GAME_DATE'].max().year}"
 
 # --- Section 1: Wins & Losses Breakdown ---
-st.header(f"{selected_team} Overview ({selected_season})")
-st.subheader(f"{selected_team} — Wins & Losses Breakdown")
+st.title(f"{selected_team} Overview ({selected_season})")
+st.subheader(f"Wins & Losses Breakdown")
 
 if df_filtered.empty:
     st.warning("No data available for the selected season.")
@@ -104,7 +103,7 @@ fig_wl = px.bar(
     barmode='group',
     template="plotly_dark"
 )
-st.plotly_chart(fig_wl, use_container_width=True)
+st.plotly_chart(fig_wl, width='stretch')
 
 # --- Section 2: Basic Statistics Analysis ---
 st.markdown("---")
@@ -123,6 +122,7 @@ metric_basic_labels = {
 }
 
 if available_basic_metrics:
+    st.sidebar.subheader("Basic Statistics Controls")
     selected_basic_metric = st.sidebar.selectbox(
         "Select Basic Statistic",
         available_basic_metrics,
@@ -148,7 +148,7 @@ if available_basic_metrics:
         x='GAME_DATE',
         y='BASIC_ROLLING',
         color='Season Year',
-        title=f"{selected_team}: {basic_rolling_window}-Game Rolling {metric_basic_labels.get(selected_basic_metric, selected_basic_metric)} ({selected_season})",
+        title=f"{basic_rolling_window}-Game Rolling {metric_basic_labels.get(selected_basic_metric, selected_basic_metric)} ({selected_season})",
         labels={
             'GAME_DATE': 'Game Date',
             'BASIC_ROLLING': f'{metric_basic_labels.get(selected_basic_metric, selected_basic_metric)} ({basic_rolling_window}-Game Moving Avg)',
@@ -158,7 +158,7 @@ if available_basic_metrics:
         template="plotly_dark"
     )
     fig_basic.update_layout(legend_title_text='Season')
-    st.plotly_chart(fig_basic, use_container_width=True)
+    st.plotly_chart(fig_basic, width='stretch')
 else:
     st.info("Basic stats CSV files not found.")
 
@@ -178,6 +178,8 @@ metric_advanced_labels = {
 }
 
 if available_advanced_metrics:
+    st.sidebar.subheader("Advanced Statistics Controls")
+
     selected_advanced_metric = st.sidebar.selectbox(
         "Select Advanced Statistic", 
         available_advanced_metrics, 
@@ -203,7 +205,7 @@ if available_advanced_metrics:
         x='GAME_DATE',
         y='ADV_ROLLING',
         color='Season Year',
-        title=f"{selected_team}: {adv_rolling_window}-Game Rolling {metric_advanced_labels.get(selected_advanced_metric, selected_advanced_metric)} ({selected_season})",
+        title=f"{adv_rolling_window}-Game Rolling {metric_advanced_labels.get(selected_advanced_metric, selected_advanced_metric)} ({selected_season})",
         labels={
             'GAME_DATE': 'Game Date',
             'ADV_ROLLING': f'{metric_advanced_labels.get(selected_advanced_metric, selected_advanced_metric)} ({adv_rolling_window}-Game Moving Avg)',
@@ -213,8 +215,8 @@ if available_advanced_metrics:
         template="plotly_dark"
     )
     fig_adv.update_layout(legend_title_text='Season')
-    st.plotly_chart(fig_adv, use_container_width=True)
+    st.plotly_chart(fig_adv, width='stretch')
 
 # --- Section 4: Expandable Raw Data View ---
 with st.expander("View Raw Game Logs & Merged Data"):
-    st.dataframe(df_filtered.sort_values('GAME_DATE', ascending=False), use_container_width=True)
+    st.dataframe(df_filtered.sort_values('GAME_DATE', ascending=False), width='stretch')

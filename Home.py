@@ -101,4 +101,8 @@ Welcome to the **NBA Analytics Dashboard**! Use the navigation sidebar on the le
    - Wins/Losses per season breakdowns.
    - Rolling averages for basic stats (Points, Rebounds, Assists) and advanced efficiency ratings (Net Rating, Pace, eFG%).
 
+2. **👤 Player Stats (`pages/Player_Stats.py`)**
+   - Search for active or historical NBA players.
+   - View game logs and statistical breakdowns by season (up to date).
+   - Track rolling performance across single-game metrics.
 """)

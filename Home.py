@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 from nba_api.stats.static import teams
 from nba_api.stats.endpoints import teamgamelogs
+
 # Set global page config for the app
 st.set_page_config(page_title="NBA Stats Hub", page_icon="🏀", layout="wide")
 
@@ -99,4 +100,5 @@ Welcome to the **NBA Analytics Dashboard**! Use the navigation sidebar on the le
    - Track team performance over 10 years (2015–Present).
    - Wins/Losses per season breakdowns.
    - Rolling averages for basic stats (Points, Rebounds, Assists) and advanced efficiency ratings (Net Rating, Pace, eFG%).
+
 """)
